@@ -41,6 +41,12 @@ class Wp_Heartstone_Deck_Oder {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wp-heartstone-deck-oder-i18n.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wp-heartstone-deck-oder-admin.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-heartstone-deck-oder-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-heartstone-deck-oder-public.php';
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/hs-api/class-hs-api.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/hs-decoder/class-hs-deck.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/hs-decoder/class-hs-enums.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/hs-decoder/class-hs-serializer.php';
 
 		$this->loader = new Wp_Heartstone_Deck_Oder_Loader();
 
@@ -58,6 +64,8 @@ class Wp_Heartstone_Deck_Oder {
 
 		$plugin_admin = new Wp_Heartstone_Deck_Oder_Admin( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'create_menu' );
+		$this->loader->add_action( 'init', $plugin_admin, 'my_plugin_handler' );		
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
