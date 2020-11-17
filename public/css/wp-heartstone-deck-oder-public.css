@@ -1,4 +1,153 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+.card-frame {
+    font-size: 18px;
+    display: block;
+    position: relative;
+    height: 40px;
+    background-color: #1b1b1b;
+    font-family: "Lato",sans-serif;
+    border-right: 5px solid #1b1b1b;
+    margin-bottom: 0.2em;
+}
+.card-frame span.card-name {
+    font-size: 16px;
+    position: relative;
+    left: 40px;
+    top: 4px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+    z-index: 2;
+    text-shadow: 1px 1px 0px #000;
+}
+
+.card-frame span.card-quantity {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    background: #2d2d2d;
+    color: #fff;
+    width: 30px;
+    height: 40px;
+    padding-top: 5px;
+    text-align: center;
+    display: inline-block;
+}
+
+.card-frame span.card-cost {
+    background: #286eb2;
+    padding: 5px 0 0;
+    color: #fff;
+    height: 40px;
+    width: 30px;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.card-frame span.card-image {
+    position: absolute;
+    right: 0px;
+    top: -10px;
+    z-index: 1;
+    width: 217px;
+    clip: rect(11px,187px,49px,34px);
+    -webkit-mask-image: linear-gradient(to right, transparent 17%, black 72%);
+    mask-image: linear-gradient(to right, transparent 17%, black 72%);
+}
+
+li.common-card {
+    border-right-color: #2ecc71!important;
+}
+
+li.rare-card {
+    border-right-color: #0070dd!important;
+}
+
+li.legendary-card {
+    border-right-color: #ff8000!important;
+}
+
+li.epic-card {
+    border-right-color:#a335ee!important;
+}
+
+li.free-card {
+    border-right-color: #b99361!important;
+}
+
+.dh-name {
+    padding-right: 10px;
+    border-right: 1px solid #e1e1e1;
+    margin-right: 30px;
+}
+
+
+.deck-header {
+    margin: 0 auto 5px;
+    padding: 8px;
+    border: 1px solid #e1e1e1;
+    overflow: auto;
+}
+
+.deck-col {
+    padding: 1%;
+}
+
+.deck-metabox {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 -15px 15px;
+    padding: 10px 15px;
+    border: 0;
+    background-color: #f6f6f6;
+}
+
+.deckstring-text {
+    width: 75%;
+}
+
+.hsdeck {
+    box-sizing: inherit;
+    display: flow-root;
+}
+
+.deckstring-box {
+    display: flex;
+}
+
+button#deck-copy {
+    margin-left: 10px;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.meta-highlight {
+    color: crimson;
+}
+
+#hover-card {
+    overflow: visible;
+    position: absolute;
+}
+
+.hover-card-div {
+    overflow: visible;
+    height: 0px;
+    z-index: 3;
+}
+
+.deck-list {
+    margin: 0;
+}
+
+
+@media screen and (min-width: 48em) {
+    .deck-col {
+        width: 50%;
+        float: left;
+        padding: 1%;
+    }
+}
+

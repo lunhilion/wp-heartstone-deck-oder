@@ -15,7 +15,7 @@ class Base_Enum {
     {
         $my_class = new ReflectionClass(get_class($this));
         $constants = $my_class->getConstants();
-        foreach($constants as $k=>$v) {
+        foreach($constants as $k => $v) {
             if($i == $v) {
                 $this->key = $v;
                 $this->value = $k;
@@ -33,6 +33,11 @@ class Base_Enum {
 	public function get_key() {
 		return $this->key;
 	}
+
+	public function get_constants() {
+		$my_class = new ReflectionClass(get_class($this));
+        return $my_class->getConstants();
+	}
 }
 class Heroes extends Base_Enum {
 
@@ -46,7 +51,7 @@ class Heroes extends Base_Enum {
 	const SHAMAN = 8;
 	const WARLOCK = 9;
 	const WARRIOR = 10;
-	const DEAMON_HUNTER = 14;
+	const DEMON_HUNTER = 14;
 
 	public function __construct($id) {
 		parent::__construct($id);
@@ -57,6 +62,7 @@ class Game_Types extends Base_Enum {
 
 	const INVALID = 0;
 	const STANDARD = 2;
+	const WILD = 3;
 
 	public function __construct($id) {
 		parent::__construct($id);
@@ -75,6 +81,31 @@ class DeckString_Positions extends Base_Enum {
 	public function __construct($id) {
 		parent::__construct($id);
 	}
+}
+
+class Rarity extends Base_Enum {
+	const COMMON = 0;
+	const RARE = 1;
+	const EPIC = 2;
+	const LEGENDARY = 3;
+
+	public function __construct($id) {
+		parent::__construct($id);
+	}
+}
+
+class Dust_Values {
+	const BASE = 0;
+	const COMMON = 40;
+	const RARE = 100;
+	const EPIC = 400;
+	const LEGENDARY = 1600;
+
+	public function get_constants()
+  	{
+   	 	$reflectionClass = new ReflectionClass($this);
+    	return $reflectionClass->getConstants();
+  	}
 }
 
 ?>

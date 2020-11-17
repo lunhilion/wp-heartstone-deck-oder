@@ -1,32 +1,35 @@
-(function( $ ) {
-	'use strict';
+(function ( $ ) {
+	"use strict";
+	$(document).mousemove(function(event) {
+        $('#hover-card').css('top', event.pageY - 50);
+		$('#hover-card').css('left', event.clientX  + 50);
+    });
 
-	/**
-	 * All of the code for your public-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+	$(document).ready(function() {
+		$('.card-frame').hover(
+			function() {
+				var art_id = $(this).attr('dbfid');
+				var art_url = 'https://art.hearthstonejson.com/v1/render/latest/enUS/256x/' + art_id + '.png';
+			 	$('#hover-card').attr("src", art_url);
+				$('#hover-card').css('display', 'block');
+				if($('.primary').length){
+					$('.primary').css('position', 'initial');
+				}
+				
 
-})( jQuery );
+			}, function() {
+				$('#hover-card').css('display', 'none');
+				if($('.primary').length){
+					$('.primary').css('position', '');
+				}
+				
+			});
+
+		$('#deck-copy').click(function() {
+			var deckstring = $('.deckstring-text').select();
+			document.execCommand("copy");
+			//$("#deck-copy").html('Copiato!');
+		});
+
+	});
+}(jQuery));

@@ -31,8 +31,9 @@ class Wp_Heartstone_Deck_Oder_Admin {
 	}
 
 	public function create_menu() {
-		$icon = file_get_contents(plugin_dir_url( __FILE__ ) . '../resources/svg/admin_hs_deckoder.svg');
-		add_menu_page( 'HS Deck-Oder', 'HS DeckOder', 'manage_options', 'test-plugin', array( $this, 'display_admin_page' ), 'data:image/svg+xml;base64,' . base64_encode($icon));
+		//$icon = include(plugin_dir_url( __FILE__ ) . '../resources/svg/admin_hs_deckoder.svg');
+		add_menu_page( 'HS Deck-Oder', 'HS DeckOder', 'edit_posts', 'test-plugin', array( $this, 'display_admin_page' ), 'data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1000 1000"><path fill="black" d="M990,493L805.2,380.9c0,0-8.4-32.7-42-72.8l33.6-123.3l-126,39.2c0,0-42-32.7-64.4-36.4L500,5.5L388,196c0,0-22.4,10.3-67.2,28l-117.6-50.4l36.4,131.7c0,0-30.8,43.9-36.4,78.4L10,493l187.6,109.3c0,0,15.9,49.5,33.6,72.9l-42,120.5L318,764.8c0,0,60.7,43,84,50.4l95.2,179.3l106.4-179.3c0,0,64.4-28,84-42l126,33.6l-39.2-128.9c0,0,33.6-54.2,44.8-81.2L990,493z M637.2,655.5c0,0-52.5,43.4-120.4,47.6c0,0-118.3,15.4-159.6-39.2l92.4-33.6c0,0,140.7-46.2,142.8-95.3c0,0,42.7-79.1-16.8-148.5l-5.6-14l-11.2,2.8c0,0-61.6-21-114.8,33.6c0,0-30.1,51.8,8.4,86.9c0,0,21,11.9,19.6-11.2l-5.6-30.8c0,0,85.4-40.6,86.8,89.7c0,0-69.3,68.6-142.8,25.2c0,0-93.1-82.7-75.6-148.5l-2.8-33.6l61.6-53.2l81.2-47.6l28,5.6l25.2-11.2l14,16.8l78.4,19.6c0,0,69.3,71.4,70,100.9C690.4,417.4,740.8,572.1,637.2,655.5z"/></svg>'));
+		//add_menu_page( 'HS Deck-Oder', 'HS DeckOder', 'edit_posts', 'test-plugin', array( $this, 'display_admin_page' ));
 	}
 
 	public function display_admin_page() {
@@ -41,22 +42,25 @@ class Wp_Heartstone_Deck_Oder_Admin {
 
 	public function my_plugin_handler() {
     	if(isset($_POST['my_submit'])) {
-			$val_a = $_POST['deck-name'];
-			$val_b = $_POST['deck-code'];
-
-			$deck = Hs_Serializer::deserialize($val_b);
-			$deck->set_deck_name($val_a);
-
-			self::create_wordpress_post("prova-insert2", $deck->get_deck_name(), $deck->html_render());
-		}		 	
+			$deck = Hs_Serializer::deserialize($_POST['deck-code']);
+			$deck->set_deck_name($_POST['deck-name']);
+			self::create_wordpress_post(self::create_slug($_POST['deck-name']), $deck->get_deck_name(), $deck->html_render(), $deck->html_excerpt());
+		}
+	
+		if(isset($_POST['my_submit_importlel'])) {
+			$api = Hs_Api::get_instance();
+			foreach($api->get_all_cards() as $card) {
+				$content = "<img src=". $api->get_rendered_card($card["id"]) ."></img>";
+				self::create_wordpress_post(self::create_slug($card["name"]), $card["name"], $content);
+			}
+		}	 	
 	}
 
-	public static function create_wordpress_post($slug, $title, $content) {	
+	public static function create_wordpress_post($slug, $title, $content, $excerpt) {	
      
 		$post_id = -1;
 	 
-		$author_id = 1;
-		//$slug = 'prova-insert';
+		$author_id = get_current_user_id();
 		if( !self::post_exists_by_slug( $slug ) ) {
 			$post_id = wp_insert_post(
 				array(
@@ -67,7 +71,8 @@ class Wp_Heartstone_Deck_Oder_Admin {
 					'post_title'        =>   $title,
 					'post_content'      =>   $content,
 					'post_status'       =>   'publish',
-					'post_type'         =>   'post'
+					'post_type'         =>   'post',
+					'post_excerpt'		=>	 $excerpt
 				)
 			);
 		} else {
@@ -88,6 +93,10 @@ class Wp_Heartstone_Deck_Oder_Admin {
 			$loop_posts->the_post();
 			return $loop_posts->post->ID;
 		}
+		}
+
+		public static function create_slug($value) {
+			return str_replace(" ", "-", $value);
 		}
 }
 ?>

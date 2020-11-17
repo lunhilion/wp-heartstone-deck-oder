@@ -50,7 +50,23 @@ if(isset($_POST['export_html_submit'])) {
 			</div>
 
 			<div id="post-body-content2">
-				<textarea id="" name="" cols="80" rows="10" class="large-text" style="margin-top: 0px; margin-bottom: 0px; height: 265px; width: 100%;"><?php echo $content; ?></textarea>
+				<textarea id="" name="" cols="80" rows="10" class="large-text" style="margin-top: 0px; margin-bottom: 0px; height: 205px;"><?php echo $content; ?></textarea>
+			</div>
+
+			<div id="postbox-container-1" class="postbox-container">
+				<div class="meta-box-sortables">
+					<div class="postbox">
+						<h2><span><?php esc_attr_e(
+									'Sidebar Content Header', 'WpAdminStyle'
+								); ?></span></h2>
+
+						<div class="inside">
+						<form name="card-import" id="card-import" method="post">
+								<input class="button-primary" type="submit" name="my_submit_import" value="Importa Carte">
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<br class="clear">

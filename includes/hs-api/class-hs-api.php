@@ -12,13 +12,15 @@
 class Hs_Api {
 
 	const API_URL = "https://api.hearthstonejson.com/v1/latest/";
+	const API_ART_URL = "https://art.hearthstonejson.com/v1/tiles/";
+	const API_RENDER_URL = "https://art.hearthstonejson.com/v1/render/latest/";
 
 	private static $instance;
 	private $locale;
 	private $json_cards;
 
 	private function __construct() {
-		$this->locale = "itIT";
+		$this->locale = "enUS";
 		$this->json_cards = $this->retrive_all_cards();
 	}
 
@@ -57,6 +59,16 @@ class Hs_Api {
 	public function set_locale($locale) {
 		$this->locale = $locale;
 		return $this;
+
+	}
+
+	public function get_card_art_link($id) {
+		return self::API_ART_URL . $id . ".png";
+
+	}
+
+	public function get_rendered_card($id) {
+		return self::API_RENDER_URL . "enUS/256x/" . $id . ".png";
 
 	}
 

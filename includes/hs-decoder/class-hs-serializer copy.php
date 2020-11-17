@@ -48,13 +48,13 @@ class Hs_Serializer {
 		$index = DeckString_Positions::SINGLE_CARDS_BIT + 1;
 		for($i = 0; $i < $single_cards; $i++) {
 			$temp_card = $api->get_card($decoded_array[$index]);
-			$deck->add_card($temp_card["dbfId"], $temp_card["name"], "1", $temp_card["cost"], $temp_card["rarity"], $api->get_card_art_link($temp_card["id"]), $temp_card["cardClass"], $temp_card["id"]);
+			$deck->add_card($temp_card["dbfId"], $temp_card["name"], "1", $temp_card["cost"], $temp_card["rarity"], $api->get_card_art_link($temp_card["id"]), $temp_card["cardClass"]);
 			$index++;
 		}
 		$index++;
 		for($i = 0; $i < $double_cards ; $i++) {
 			$temp_card = $api->get_card($decoded_array[$index]);
-			$deck->add_card($temp_card["dbfId"], $temp_card["name"], "2", $temp_card["cost"], $temp_card["rarity"], $api->get_card_art_link($temp_card["id"]), $temp_card["cardClass"], $temp_card["id"]);
+			$deck->add_card($temp_card["dbfId"], $temp_card["name"], "2", $temp_card["cost"], $temp_card["rarity"], $api->get_card_art_link($temp_card["id"]), $temp_card["cardClass"]);
 			$index++;
 		}
 		return $deck;
