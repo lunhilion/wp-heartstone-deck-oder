@@ -121,6 +121,8 @@ button#deck-copy {
     margin-left: 10px;
     line-height: normal;
     white-space: nowrap;
+    width: 27%;
+    padding: 8px;
 }
 
 .meta-highlight {

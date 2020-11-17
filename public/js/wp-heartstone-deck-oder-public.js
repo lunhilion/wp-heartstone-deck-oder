@@ -32,8 +32,8 @@
 				$temp.val(deckstring).select();
 				document.execCommand("copy");
 				$temp.remove();
+				$(this).html('Copied!');
 			});
-			//$("#deck-copy").html('Copiato!');
 
 	});
 }(jQuery));

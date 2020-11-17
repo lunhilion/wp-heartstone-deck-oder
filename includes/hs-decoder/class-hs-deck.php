@@ -7,6 +7,7 @@
  * @author     LunHilion <e.sanguin.92@gmail.com>
  */
 class Hs_Deck {
+	const MAX_CARDS = 30;
 
 	private $deck_name;
 	private $hero;
@@ -120,7 +121,7 @@ class Hs_Deck {
 
 		$html .= '<div class="deckstring-box">
 					<input class="deckstring-text" type="text" value="'. $this->deckstring .'">
-					<button class="btn-deck-copy" id="deck-copy" data-deck-copy="'. $this->deckstring .'">Copia il deck!</button>';
+					<button class="btn-deck-copy" id="deck-copy" data-deck-copy="'. $this->deckstring .'">Copy Deck!</button>';
 
 		// Last content div
 		$html .= '</div>';
