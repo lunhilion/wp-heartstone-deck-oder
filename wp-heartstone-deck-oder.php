@@ -9,7 +9,7 @@
  * Plugin Name:       Heartstone Deck-Oder
  * Plugin URI:        https://github.com/lunhilion/wp-heartstone-deck-oder
  * Description:       A deck-code importer for Wordpress.
- * Version:           0.0.1
+ * Version:           0.0.2
  * Author:            LunHilion
  * Author URI:        https://github.com/lunhilion/
  * License:           GPL-2.0+
@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WP_HEARTSTONE_DECK_ODER_VERSION', '0.0.1' );
+define( 'WP_HEARTSTONE_DECK_ODER_VERSION', '0.0.2' );
 
 function activate_wp_heartstone_deck_oder() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-heartstone-deck-oder-activator.php';

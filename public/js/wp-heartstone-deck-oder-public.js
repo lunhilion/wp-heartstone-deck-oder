@@ -25,11 +25,15 @@
 				
 			});
 
-		$('#deck-copy').click(function() {
-			var deckstring = $('.deckstring-text').select();
-			document.execCommand("copy");
+			$('.btn-deck-copy').click(function() {
+				var deckstring = $(this).attr('data-deck-copy');
+				var $temp = $("<input>");
+				$("body").append($temp);
+				$temp.val(deckstring).select();
+				document.execCommand("copy");
+				$temp.remove();
+			});
 			//$("#deck-copy").html('Copiato!');
-		});
 
 	});
 }(jQuery));

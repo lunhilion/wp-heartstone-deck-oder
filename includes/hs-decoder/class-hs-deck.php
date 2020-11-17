@@ -11,7 +11,7 @@ class Hs_Deck {
 	private $deck_name;
 	private $hero;
 	private $format;
-	private $total_dust;
+	private $total_dust = 0;
 	private $cards_list = array();
 	private $deckstring;
 
@@ -200,6 +200,7 @@ class Hs_Deck {
 		}
 	}
 
+	//Todo: aggiungere flag per contare 1 | 2 | all
 	public static function count_cards($array) {
 		$count = 0;
 		foreach($array as $card) {
