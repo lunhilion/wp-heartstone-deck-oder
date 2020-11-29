@@ -12,6 +12,7 @@ class Hs_Deck {
 	private $deck_name;
 	private $hero;
 	private $format;
+	private $server;
 	private $total_dust = 0;
 	private $cards_list = array();
 	private $deckstring;
@@ -29,7 +30,7 @@ class Hs_Deck {
 			'cardClass' => $card_class,
 			'art_id' => $art_id
 		));
-		$dust_values = new Dust_Values();
+		$dust_values = new Dust_Values(0); //TODO: da rivedere il costruttore
 		foreach($dust_values->get_constants() as $k => $v) {
 			if(strcmp($rarity, $k) == 0) {
 				if($quantity == 1) {
@@ -62,25 +63,14 @@ class Hs_Deck {
 	}
 
 	public function html_excerpt() {
-		$html = '<strong>Class: </strong>' .
-		'<strong class="meta-highlight">'. $this->hero .'</strong>' .
-		'<strong>  |  Format: </strong>' .
-		'<strong class="meta-highlight">'. $this->format .'</strong>' .
-		'<strong>  |  Dust cost: </strong>' .
-		'<strong class="meta-highlight">'. $this->total_dust .'</strong>';
-		return $html;
+		return self::html_meta_header();
 	}
 
 	public function html_render() {
 		$html = '<div class="hover-card-div"><img id="hover-card" src="#" style="display: none; top: 0px; left: 0; z-index: 3;"></div>';
 		$html .= '<div class="hsdeck">';
 		$html .= '<div class="deck-metabox">' .
-					'<strong>Class: </strong>' .
-					'<strong class="meta-highlight">'. $this->hero .'</strong>' .
-					'<strong>  |  Format: </strong>' .
-					'<strong class="meta-highlight">'. $this->format .'</strong>' .
-					'<strong>  |  Dust cost: </strong>' .
-					'<strong class="meta-highlight">'. $this->total_dust .'</strong>' .
+					self::html_meta_header() .
 					'</div>';
 
 		//$html .= '<p><b>Classe: </b>'. $this->hero .'</p>';
@@ -127,6 +117,23 @@ class Hs_Deck {
 		$html .= '</div>';
 		
 
+		return $html;
+	}
+
+	public function html_meta_header() { //TODO: Utilizzare un ciclo
+		$html =
+		'<strong>Class: </strong>' .
+		'<strong class="meta-highlight">'. $this->hero .'</strong>' ;
+		if(!empty($this->format)) {
+			$html .= '<strong>  |  Format: </strong>' .
+			'<strong class="meta-highlight">'. $this->format .'</strong>';
+		}
+		if(!empty($this->server)) {
+			$html .= '<strong>  |  Server: </strong>' .
+			'<strong class="meta-highlight">'. $this->server .'</strong>';
+		}
+		$html .= '<strong>  |  Dust cost: </strong>' .
+		'<strong class="meta-highlight">'. $this->total_dust .'</strong>';
 		return $html;
 	}
 
@@ -178,16 +185,24 @@ class Hs_Deck {
 		$this->hero = $hero;
 	}
 
-	public function get_format() {
+	public function get_total_dust() {
 		return $this->format;
 	}
 
-	public function get_total_dust() {
+	public function get_format() {
 		return $this->format;
 	}
 	
 	public function set_format($format) {
 		$this->format = $format;
+	}
+
+	public function get_server() {
+		return $this->server;
+	}
+	
+	public function set_server($server) {
+		$this->server = $server;
 	}
 
 	public function set_order($order) {

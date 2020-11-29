@@ -12,31 +12,8 @@ class Hs_Serializer {
 		$array = self::base64_to_int($deckstring);
 		$deck = self::build_deck($array);
 		$deck->set_deckstring($deckstring);
-		$deck->set_format("Standard");
 		$deck->set_order("ASC");
 		return $deck;
-		/**
-		$boh = new Heroes(7);
-		echo $boh->get_key();
-		$singole = $array[5];
-		$doppie = $array[6 + $singole];
-		echo "<br> <b>Carte singole:</b> <br>";
-		
-		$x = 6;
-		for($i = 0; $i < $singole; $i++) {
-			echo $api->get_card($array[$x])["name"] . "<br>";
-			$x++;
-		}
-		$x++;
-		echo "<br> <b>Carte doppie:</b> <br>";
-		for($i = 0; $i < $doppie ; $i++) {
-			echo $api->get_card($array[$x])["name"] . "<br>";
-			$x++;
-		}
-		//$prova = $api->get_card($array[6]);
-		print_r($array);
-		//print_r($prova);
-		*/
 	}
 
 	private static function build_deck($decoded_array) {

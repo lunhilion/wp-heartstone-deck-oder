@@ -30,29 +30,60 @@ if(isset($_POST['export_html_submit'])) {
 	<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 			<div id="post-body-content">
-
 				<div class="meta-box-sortables ui-sortable">
-
 					<div class="postbox">
-
-						<h2><span><?php esc_attr_e( 'Aggiungi un nuovo Mazzo', 'WpAdminStyle' ); ?></span></h2>
-
+						<div class="table-deck-header"><h2><?php esc_attr_e( 'Aggiungi un nuovo mazzo', 'WpAdminStyle' ); ?></h2></div>
 						<div class="inside">
-							<form name="deck-code" id="deck-code" method="post">
-								Nome Mazzo:   <input type="text" class="regular-text" name="deck-name"><br /><br />
-								Codice Mazzo: <input type="text" class="regular-text" name="deck-code"><br /><br />
-								<input class="button-primary" type="submit" name="my_submit" value="Salva">
-								<input class="button-primary" type="submit" name="export_html_submit" value="Visualizza html">
-							</form>
+						<form action="" method="post">
+							<table class="form-table">
+								<tbody>
+								<tr valign="top">
+									<th scope="row">
+										<label for="deck-name">Nome Mazzo</label>
+									</th>
+									<td>
+										<input type="text" name="deck-name" value="" aria-required="true" required="true">
+									</td>
+								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="deck-code">Codice Mazzo</label>
+									</th>
+									<td>
+										<input type="text" name="deck-code" value="" aria-required="true" required="true">
+									</td>
+								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="deck-format">Formato</label>
+									</th>
+									<td>
+										<?php Wp_Heartstone_Deck_Oder_Admin::create_combobox('format', new Game_Types(0), Game_Types::STANDARD); ?>
+									</td>
+								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="deck-server">Server</label>
+									</th>
+									<td>
+										<?php Wp_Heartstone_Deck_Oder_Admin::create_combobox('server', new Servers(0), Servers::UNKNOWN); ?>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<div class="table-deck-footer">
+								
+									<input class="button-primary" type="submit" name="my_submit" value="Salva">
+									<input class="button-primary" type="submit" name="export_html_submit" value="Visualizza html">
+							</div>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>
 
 			<div id="post-body-content2">
-				<textarea id="" name="" cols="80" rows="10" class="large-text" style="margin-top: 0px; margin-bottom: 0px; height: 265px; width: 100%;"><?php echo $content; ?></textarea>
+				<textarea id="" name="" cols="80" rows="10" class="large-text html-box"><?php echo $content; ?></textarea>
 			</div>
-		</div>
-		<br class="clear">
-	</div>
+
 </div>

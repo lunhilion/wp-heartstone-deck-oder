@@ -36,7 +36,9 @@ class Base_Enum {
 
 	public function get_constants() {
 		$my_class = new ReflectionClass(get_class($this));
-        return $my_class->getConstants();
+		$array = $my_class->getConstants();
+		ksort($array);
+        return $array;
 	}
 }
 class Heroes extends Base_Enum {
@@ -59,10 +61,13 @@ class Heroes extends Base_Enum {
 }
 
 class Game_Types extends Base_Enum {
-
-	const INVALID = 0;
-	const STANDARD = 2;
-	const WILD = 3;
+	
+	const UNKNOWN = '';
+	const ARENA = 'ARENA';
+	const BATTLEGROUND = 'BATTLEGROUND';
+	const DUELS = 'DUELS';
+	const STANDARD = 'STANDARD';
+	const WILD = 'WILD';
 
 	public function __construct($id) {
 		parent::__construct($id);
@@ -94,18 +99,28 @@ class Rarity extends Base_Enum {
 	}
 }
 
-class Dust_Values {
+class Servers extends Base_Enum {
+	const UNKNOWN = '';
+	const NORTH_AMERICA = 'NA';
+	const EUROPE = 'EU';
+	const ASIA_PACIFIC = 'AP';
+	const CHINA = 'CN';
+
+	public function __construct($id) {
+		parent::__construct($id);
+	}
+}
+
+class Dust_Values extends Base_Enum {
 	const BASE = 0;
 	const COMMON = 40;
 	const RARE = 100;
 	const EPIC = 400;
 	const LEGENDARY = 1600;
 
-	public function get_constants()
-  	{
-   	 	$reflectionClass = new ReflectionClass($this);
-    	return $reflectionClass->getConstants();
-  	}
+	public function __construct($id) {
+		parent::__construct($id);
+	}
 }
 
 ?>

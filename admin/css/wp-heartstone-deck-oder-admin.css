@@ -1,4 +1,39 @@
-/**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
- */
+.form-table, .form-table td, .form-table td p, .form-table th {
+    font-size: 14px;
+}
+
+.form-table input {
+    width: 90%;
+}
+
+.form-table select {
+    width: 35%;
+}
+
+.form-table thead {
+    padding: 0;
+    margin: 0;
+
+}
+
+#poststuff #post-body.columns-2 {
+    margin-right: 0;
+}
+
+.postbox {
+    max-width: 750px;
+}
+
+.table-deck-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccd0d4;
+}
+
+.html-box {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 290px;
+    max-width: 1200px;
+}

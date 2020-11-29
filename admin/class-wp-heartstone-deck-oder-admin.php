@@ -44,6 +44,8 @@ class Wp_Heartstone_Deck_Oder_Admin {
     	if(isset($_POST['my_submit'])) {
 			$deck = Hs_Serializer::deserialize($_POST['deck-code']);
 			$deck->set_deck_name($_POST['deck-name']);
+			$deck->set_format($_POST['deck-format']);
+			$deck->set_server($_POST['deck-server']);
 			self::create_wordpress_post(self::create_slug($_POST['deck-name']), $deck->get_deck_name(), $deck->html_render(), $deck->html_excerpt());
 		}
 	
@@ -97,6 +99,19 @@ class Wp_Heartstone_Deck_Oder_Admin {
 
 		public static function create_slug($value) {
 			return str_replace(" ", "-", $value);
+		}
+
+		public static function create_combobox($label, $values, $selected) {
+			$html = '<select name="deck-'. $label .'">';
+			foreach($values->get_constants() as $key => $value) {
+				if(strcmp($value, $selected) == 0) {
+					$html .= '<option value="'. $value .'" selected>'. $key .'</option>';
+				} else {
+					$html .= '<option value="'. $value .'">'. $key .'</option>';
+				}
+			}
+			$html .= '</select>';
+			echo $html;
 		}
 }
 ?>
