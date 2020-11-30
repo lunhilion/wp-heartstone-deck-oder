@@ -7,12 +7,17 @@
  * @author     LunHilion <e.sanguin.92@gmail.com>
  */
 class Hs_Deck {
-	const MAX_CARDS = 30;
 
-	private $deck_name;
+	const MAX_CARDS = 30;
+	const TITLE_PATTERN = "%s %s (%s) - #%d";
+
+	private $custom_title = '';
 	private $hero;
 	private $format;
 	private $server;
+	private $rank;
+	private $archetype;
+	private $author;
 	private $total_dust = 0;
 	private $cards_list = array();
 	private $deckstring;
@@ -157,12 +162,12 @@ class Hs_Deck {
 		return $temp;
 	}
 
-	public function get_deck_name() {
-		return $this->deck_name;
+	public function get_custom_title() {
+		return $this->custom_title;
 	}
 
-	public function set_deck_name($deck_name) {
-		$this->deck_name = $deck_name;
+	public function set_custom_title($custom_title) {
+		$this->custom_title = $custom_title;
 	}
 
 	public function get_cards_list() {
@@ -172,17 +177,22 @@ class Hs_Deck {
 	public function get_hero() {
 		return $this->hero;
 	}
-	
-	public function set_deckstring($string) {
-		$this->deckstring = $string;
+
+	public function set_hero($hero) {
+		$heroes = new Heroes(0);
+		foreach($heroes->get_constants() as $key => $value) {
+			if(strcmp($key, $hero) == 0) {
+				$this->hero =  $value;
+			}
+		}
 	}
 
 	public function get_deckstring() {
 		return $this->deckstring;
 	}
-
-	public function set_hero($hero) {
-		$this->hero = $hero;
+	
+	public function set_deckstring($deckstring) {
+		$this->deckstring = $deckstring;
 	}
 
 	public function get_total_dust() {
@@ -205,6 +215,30 @@ class Hs_Deck {
 		$this->server = $server;
 	}
 
+	public function get_rank() {
+		return $this->rank;
+	}
+	
+	public function set_rank($rank) {
+		$this->rank = $rank;
+	}
+
+	public function get_archetype() {
+		return $this->archetype;
+	}
+	
+	public function set_author($author) {
+		$this->author = $author;
+	}
+
+	public function get_author() {
+		return $this->author;
+	}
+	
+	public function set_archetype($archetype) {
+		$this->archetype = $archetype;
+	}
+
 	public function set_order($order) {
 		if($order != "") {
 			$cost = array_column($this->cards_list, 'cost');
@@ -214,6 +248,15 @@ class Hs_Deck {
 				array_multisort($cost, SORT_DESC, $this->cards_list);
 			}
 		}
+	}
+
+	public function generate_title() {
+		return sprintf(self::TITLE_PATTERN,
+						$this->archetype,
+						$this->hero,
+						$this->author,
+						$this->rank
+					);
 	}
 
 	//Todo: aggiungere flag per contare 1 | 2 | all

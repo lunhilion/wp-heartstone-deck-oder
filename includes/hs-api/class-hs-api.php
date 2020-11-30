@@ -63,12 +63,12 @@ class Hs_Api {
 	}
 
 	public function get_card_art_link($id) {
-		return self::API_ART_URL . $id . ".png";
+		return self::API_ART_URL . $id . '.png';
 
 	}
 
 	public function get_rendered_card($id) {
-		return self::API_RENDER_URL . "enUS/256x/" . $id . ".png";
+		return self::API_RENDER_URL . 'enUS/256x/' . $id . '.png';
 
 	}
 

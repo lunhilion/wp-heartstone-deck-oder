@@ -16,6 +16,14 @@
 
 }
 
+.sm-input {
+    width: 20% !important;
+}
+
+.md-input {
+    width: 45% !important;
+}
+
 #poststuff #post-body.columns-2 {
     margin-right: 0;
 }
@@ -37,3 +45,4 @@
     height: 290px;
     max-width: 1200px;
 }
+

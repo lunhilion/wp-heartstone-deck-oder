@@ -43,17 +43,16 @@ class Base_Enum {
 }
 class Heroes extends Base_Enum {
 
-	const INVALID = 0;
-	const DRUID = 2;
-	const HUNTER = 3;
-	const MAGE = 4;
-	const PALADIN = 5;
-	const PRIEST = 6;
-	const ROGUE = 7;
-	const SHAMAN = 8;
-	const WARLOCK = 9;
-	const WARRIOR = 10;
-	const DEMON_HUNTER = 14;
+	const DRUID = "Druid";
+	const HUNTER = "Hunter";
+	const MAGE = "Mage";
+	const PALADIN = "Paladin";
+	const PRIEST = "Priest";
+	const ROGUE = "Rogue";
+	const SHAMAN = "Shaman";
+	const WARLOCK = "Warlock";
+	const WARRIOR = "Warrior";
+	const DEMONHUNTER = "Demon Hunter";
 
 	public function __construct($id) {
 		parent::__construct($id);
