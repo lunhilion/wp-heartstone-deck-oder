@@ -49,7 +49,7 @@ class Wp_Heartstone_Deck_Oder_Admin {
 			$deck->set_rank($_POST['deck-rank']);
 			$deck->set_author($_POST['deck-player-name']);
 			$deck->set_archetype($_POST['deck-archetype']);
-			self::create_wordpress_post(self::create_slug($deck->generate_title()), $deck->generate_title(), $deck->html_render(), $deck->html_excerpt());
+			self::insert_wordpress_deck($deck);
 		}
 	
 		if(isset($_POST['my_submit_importlel'])) {
@@ -59,6 +59,13 @@ class Wp_Heartstone_Deck_Oder_Admin {
 				self::create_wordpress_post(self::create_slug($card["name"]), $card["name"], $content);
 			}
 		}	 	
+	}
+
+	public static function insert_wordpress_deck($deck) {
+		$post_id = self::create_wordpress_post(self::create_slug($deck->generate_title()), $deck->generate_title(), $deck->html_render(), $deck->html_excerpt());
+		$trimmed_hero = preg_replace('/\s/', '', $deck->get_hero());
+		echo "EROE: " . $trimmed_hero;
+		self::add_featured_image_to_post($trimmed_hero, $post_id);
 	}
 
 	public static function create_wordpress_post($slug, $title, $content, $excerpt) {	
@@ -78,6 +85,8 @@ class Wp_Heartstone_Deck_Oder_Admin {
 					'post_excerpt'		=>	 $excerpt
 				)
 			);
+			return $post_id;
+
 		} else {
 			$post_id = -2;
 		}
@@ -132,6 +141,31 @@ class Wp_Heartstone_Deck_Oder_Admin {
 			echo $html;
 			$page_url = "views/main-pages/". $current_tab .".php";
 			include_once($page_url);
+		}
+
+		public static function add_featured_image_to_post($image_name, $post_id) {
+			if(!empty($image_name)) {
+				$query_images_args = array(
+					'post_type'      => 'attachment',
+					'post_mime_type' => 'image',
+					'post_status'    => 'inherit',
+					'posts_per_page' => - 1,
+				);
+				$query_images = new WP_Query($query_images_args);
+				$image_id;
+				$images = array();
+				foreach ($query_images->posts as $image) {
+					$image_url = wp_get_attachment_url($image->ID);
+					$match = strpos($image_url, $image_name);
+					if($match !== false) {
+						$image_id = $image->ID;
+						break;
+					}
+				}
+				if(!empty($image_id)) {
+					$thumbnail = set_post_thumbnail($post_id, $image_id);
+				}
+			}
 		}
 }
 ?>
