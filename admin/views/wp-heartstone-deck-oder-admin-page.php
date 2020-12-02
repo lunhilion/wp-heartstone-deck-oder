@@ -12,14 +12,6 @@
  * @subpackage Wp_Heartstone_Deck_Oder/admin/views
  */
 
-
-$content = '';
-if(isset($_POST['export_html_submit'])) {
-	$deck = Hs_Serializer::deserialize($_POST['deck-code']);
-	$deck->set_deck_name($_POST['deck-name']);
-	$content = $deck->html_render();
-}
-
 ?>
 
 <h1><?php _e( 'Heartstone DeckOder', 'WpAdminStyle' ); ?></h1>

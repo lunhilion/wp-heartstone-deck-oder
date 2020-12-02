@@ -17,7 +17,6 @@ class Wp_Heartstone_Deck_Oder_Admin {
 	private $version;
 
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
@@ -42,7 +41,7 @@ class Wp_Heartstone_Deck_Oder_Admin {
 	}
 
 	public function my_plugin_handler() {
-    	if(isset($_POST['my_submit_smart'])) {
+    	if(isset($_POST['submit_smart'])) {
 			$deck = Hs_Serializer::deserialize($_POST['deck-code']);
 			$deck->set_format($_POST['deck-format']);
 			$deck->set_server($_POST['deck-server']);
@@ -51,18 +50,44 @@ class Wp_Heartstone_Deck_Oder_Admin {
 			$deck->set_archetype($_POST['deck-archetype']);
 			self::insert_wordpress_deck($deck);
 		}
-	
-		if(isset($_POST['my_submit_importlel'])) {
-			$api = Hs_Api::get_instance();
-			foreach($api->get_all_cards() as $card) {
-				$content = "<img src=". $api->get_rendered_card($card["id"]) ."></img>";
-				self::create_wordpress_post(self::create_slug($card["name"]), $card["name"], $content);
+
+		if(isset($_POST['submit_standard'])) {
+			$deck = Hs_Serializer::deserialize($_POST['deck-code']);
+			$deck->set_format($_POST['deck-format']);
+			$deck->set_server($_POST['deck-server']);
+			$deck->set_custom_title($_POST['deck-title']);
+			if(isset($_POST['deck-column'])) {
+				$deck->set_render_column($_POST['deck-column']);
 			}
-		}	 	
+			self::insert_wordpress_deck($deck);
+		}
+
+		if(isset($_POST['export_html_submit'])) {
+			$deck = Hs_Serializer::deserialize($_POST['deck-code']);
+			$deck->set_format($_POST['deck-format']);
+			$deck->set_server($_POST['deck-server']);
+			$deck->set_custom_title($_POST['deck-title']);
+			if(isset($_POST['deck-column'])) {
+				$deck->set_render_column($_POST['deck-column']);
+			}
+			$_POST['html_content'] = $deck->html_render();
+		}
+	
+		// if(isset($_POST['my_submit_importlel'])) {
+		// 	$api = Hs_Api::get_instance();
+		// 	foreach($api->get_all_cards() as $card) {
+		// 		$content = "<img src=". $api->get_rendered_card($card["id"]) ."></img>";
+		// 		self::create_wordpress_post(self::create_slug($card["name"]), $card["name"], $content);
+		// 	}
+		// }	 	
 	}
 
 	public static function insert_wordpress_deck($deck) {
-		$post_id = self::create_wordpress_post(self::create_slug($deck->generate_title()), $deck->generate_title(), $deck->html_render(), $deck->html_excerpt());
+		if(!empty($deck->get_custom_title())) {
+			$post_id = self::create_wordpress_post(self::create_slug($deck->get_custom_title()), $deck->get_custom_title(), $deck->html_render(), $deck->html_excerpt());
+		} else {
+			$post_id = self::create_wordpress_post(self::create_slug($deck->generate_title()), $deck->generate_title(), $deck->html_render(), $deck->html_excerpt());
+		}
 		$trimmed_hero = preg_replace('/\s/', '', $deck->get_hero());
 		self::add_featured_image_to_post($trimmed_hero, $post_id);
 		self::add_deck_categories($deck->get_format(), $deck->get_hero(), $post_id);

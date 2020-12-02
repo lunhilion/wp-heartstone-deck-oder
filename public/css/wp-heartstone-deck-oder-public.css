@@ -144,6 +144,20 @@ button#deck-copy {
     margin: 0;
 }
 
+.deck-list-one-col-box {
+    display: block !important;
+}
+
+.deck-list-one-col-btn {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 12px 8px !important;
+    margin-top: 4px !important;
+}
+
+.hsdeck-one-col {
+    display: block;
+}
 
 @media screen and (min-width: 48em) {
     .deck-col {

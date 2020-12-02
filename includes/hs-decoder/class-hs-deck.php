@@ -10,6 +10,7 @@ class Hs_Deck {
 
 	const MAX_CARDS = 30;
 	const TITLE_PATTERN = "%s %s (%s) - #%d";
+	const TITLE_PATTERN_NO_RANK = "%s %s (%s)";
 
 	private $custom_title = '';
 	private $hero;
@@ -21,6 +22,7 @@ class Hs_Deck {
 	private $total_dust = 0;
 	private $cards_list = array();
 	private $deckstring;
+	private $render_column = 2;
 
 	public function __construct() {}
 
@@ -73,72 +75,104 @@ class Hs_Deck {
 
 	public function html_render() {
 		$html = '<div class="hover-card-div"><img id="hover-card" src="#" style="display: none; top: 0px; left: 0; z-index: 3;"></div>';
-		$html .= '<div class="hsdeck">';
-		$html .= '<div class="deck-metabox">' .
-					self::html_meta_header() .
-					'</div>';
+		$html .= self::html_column_render($this->render_column);
+		return $html;
+	}
 
-		//$html .= '<p><b>Classe: </b>'. $this->hero .'</p>';
-		$d1 = $this->get_class_cards();
-		$html .= '<div class="deck-col">';
-		$html .= '<div class="deck-header">
-					<div class="dh-name">
-					<strong>Class ('. self::count_cards($d1) .')</strong>
-					</div></div>';
-		$html .= '<ul class="deck-list">';
-		foreach($d1 as $card) {
-			$html .= '<li dbfid="'. $card["art_id"] .'" class="card-frame ' . strtolower($card["rarity"]) . '-card">' .
-						'<span class="card-cost">'. $card["cost"] . '</span>' .
-						'<span class="card-name">'. $card["name"] . '</span>' .
-						'<span class="card-quantity">'. $card["quantity"] . '</span>' .
-						'<span class="card-image"><img src="'. $card["art_url"] . '"></span>' .
-						'</li>';
+	private function html_deckstring_box_render($more_class) {
+		$html = '<div class="deckstring-box '; 
+		if(!empty($more_class)) {
+			$html .= $more_class . '-box';
 		}
-		$html .= '</div>';
-		$d2 = $this->get_neutral_cards();
-		$html .= '<div class="deck-col">';
-		$html .= '<div class="deck-header">
-					<div class="dh-name">
-					<strong>Neutral ('. self::count_cards($d2) .')</strong>
-					</div></div>';
-		$html .= '<ul class="deck-list">';
-		foreach($d2 as $card) {
-			$html .= '<li dbfid="'. $card["art_id"] .'" class="card-frame ' . strtolower($card["rarity"]) . '-card">' .
-						'<span class="card-cost">'. $card["cost"] . '</span>' .
-						'<span class="card-name">'. $card["name"] . '</span>' .
-						'<span class="card-quantity">'. $card["quantity"] . '</span>' .
-						'<span class="card-image"><img src="'. $card["art_url"] . '"></span>' .
-						'</li>';
+		$html .= '"><input class="deckstring-text" type="text" value="'. $this->deckstring .'"><button class="btn-deck-copy ';
+		if(!empty($more_class)) {
+			$html .= $more_class . '-btn';
 		}
-		$html .= '</div>';
-		$html .= '</ul>';
-		$html .= '</div>';
-
-		$html .= '<div class="deckstring-box">
-					<input class="deckstring-text" type="text" value="'. $this->deckstring .'">
-					<button class="btn-deck-copy" id="deck-copy" data-deck-copy="'. $this->deckstring .'">Copy Deck!</button>';
-
-		// Last content div
-		$html .= '</div>';
-		
+		$html .='" id="deck-copy" data-deck-copy="'. $this->deckstring .'">Copy Deck!</button>
+				</div>';
 
 		return $html;
+	}
+
+	private function html_column_render($column) {
+		$html = '';
+		if($column == 1) {
+			$d1 = $this->get_cards_list();
+			$html .= '<div class="deck-col">';
+			$html .= '<div class="deck-metabox">' .
+					self::html_meta_header() .
+					'</div>';
+			$html .= '<ul class="deck-list">';
+			foreach($d1 as $card) {
+				$html .= '<li dbfid="'. $card["art_id"] .'" class="card-frame ' . strtolower($card["rarity"]) . '-card">' .
+							'<span class="card-cost">'. $card["cost"] . '</span>' .
+							'<span class="card-name">'. $card["name"] . '</span>' .
+							'<span class="card-quantity">'. $card["quantity"] . '</span>' .
+							'<span class="card-image"><img src="'. $card["art_url"] . '"></span>' .
+							'</li>';
+			}
+			$html .= '</ul>';
+			$html .= self::html_deckstring_box_render('deck-list-one-col');
+
+		} else if($column == 2) {
+			$d1 = $this->get_class_cards();
+			$html .= '<div class="hsdeck">';
+			$html .= '<div class="deck-metabox">' .
+					self::html_meta_header() .
+					'</div>';
+			$html .= '<div class="deck-col">';
+			$html .= '<div class="deck-header">
+						<div class="dh-name">
+						<strong>Class ('. self::count_cards($d1) .')</strong>
+						</div></div>';
+			$html .= '<ul class="deck-list">';
+			foreach($d1 as $card) {
+				$html .= '<li dbfid="'. $card["art_id"] .'" class="card-frame ' . strtolower($card["rarity"]) . '-card">' .
+							'<span class="card-cost">'. $card["cost"] . '</span>' .
+							'<span class="card-name">'. $card["name"] . '</span>' .
+							'<span class="card-quantity">'. $card["quantity"] . '</span>' .
+							'<span class="card-image"><img src="'. $card["art_url"] . '"></span>' .
+							'</li>';
+			}
+			$html .= '</div>';
+			$d2 = $this->get_neutral_cards();
+			$html .= '<div class="deck-col">';
+			$html .= '<div class="deck-header">
+						<div class="dh-name">
+						<strong>Neutral ('. self::count_cards($d2) .')</strong>
+						</div></div>';
+			$html .= '<ul class="deck-list">';
+			foreach($d2 as $card) {
+				$html .= '<li dbfid="'. $card["art_id"] .'" class="card-frame ' . strtolower($card["rarity"]) . '-card">' .
+							'<span class="card-cost">'. $card["cost"] . '</span>' .
+							'<span class="card-name">'. $card["name"] . '</span>' .
+							'<span class="card-quantity">'. $card["quantity"] . '</span>' .
+							'<span class="card-image"><img src="'. $card["art_url"] . '"></span>' .
+							'</li>';
+			}
+			$html .= '</div>';
+			$html .= '</ul>';
+			$html .= '</div>';
+			$html .= self::html_deckstring_box_render('');
+		}
+		return $html;
+
 	}
 
 	public function html_meta_header() { //TODO: Utilizzare un ciclo
 		$html =
 		'<strong>Class: </strong>' .
-		'<strong class="meta-highlight">'. $this->hero .'</strong>' ;
+		'<strong class="meta-highlight">'. strtoupper($this->hero) .'</strong>' ;
 		if(!empty($this->format)) {
 			$html .= '<strong>  |  Format: </strong>' .
-			'<strong class="meta-highlight">'. $this->format .'</strong>';
+			'<strong class="meta-highlight">'. strtoupper($this->format) .'</strong>';
 		}
 		if(!empty($this->server)) {
 			$html .= '<strong>  |  Server: </strong>' .
-			'<strong class="meta-highlight">'. $this->server .'</strong>';
+			'<strong class="meta-highlight">'. strtoupper($this->server) .'</strong>';
 		}
 		$html .= '<strong>  |  Dust cost: </strong>' .
-		'<strong class="meta-highlight">'. $this->total_dust .'</strong>';
+		'<strong class="meta-highlight">'. strtoupper($this->total_dust) .'</strong>';
 		return $html;
 	}
 
@@ -223,6 +257,14 @@ class Hs_Deck {
 		$this->rank = $rank;
 	}
 
+	public function get_render_column() {
+		return $this->render_column;
+	}
+	
+	public function set_render_column($render_column) {
+		$this->render_column = $render_column;
+	}
+
 	public function get_archetype() {
 		return $this->archetype;
 	}
@@ -251,12 +293,20 @@ class Hs_Deck {
 	}
 
 	public function generate_title() {
-		return sprintf(self::TITLE_PATTERN,
+		if(empty($this->rank)) {
+			return sprintf(self::TITLE_PATTERN_NO_RANK,
+						$this->archetype,
+						$this->hero,
+						$this->author,
+					);
+		} else {
+			return sprintf(self::TITLE_PATTERN,
 						$this->archetype,
 						$this->hero,
 						$this->author,
 						$this->rank
 					);
+		}
 	}
 
 	//Todo: aggiungere flag per contare 1 | 2 | all

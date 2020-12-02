@@ -46,3 +46,14 @@
     max-width: 1200px;
 }
 
+#wpfooter {
+    margin-left: 0px important!;
+}
+
+.table-deck-footer {
+    padding: 11px 0px 10px 0px;
+}
+
+.form-checkbox {
+    width: 0% !important;
+}

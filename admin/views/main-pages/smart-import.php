@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<label for="deck-code">Codice Mazzo</label>
 									</th>
 									<td>
-										<input type="text" name="deck-code" value="" aria-required="true" required="true">
+										<input type="text" name="deck-code" value="" required="true">
 									</td>
 								</tr>
 								<tr valign="top">
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<label for="deck-player-name">Nome Giocatore</label>
 									</th>
 									<td>
-										<input type="text" name="deck-player-name" value="" aria-required="true" required="true">
+										<input type="text" name="deck-player-name" value="" required="true">
 									</td>
 								</tr>
 								<tr valign="top">
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<label for="deck-archetype">Archetipo</label>
 									</th>
 									<td>
-										<input type="text" name="deck-archetype" class="md-input "value="" aria-required="true" required="true">
+										<input type="text" name="deck-archetype" class="md-input" value="" required="true">
 									</td>
 								</tr>
 								<tr valign="top">
@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<label for="deck-rank">Rank</label>
 									</th>
 									<td>
-										<input type="text" class="sm-input" name="deck-rank" value="" aria-required="true" required="true">
+										<input type="number" class="sm-input" name="deck-rank" value="">
 									</td>
 								</tr>
 								<tr valign="top">
@@ -68,18 +68,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</tbody>
 							</table>
 							<div class="table-deck-footer">
-								
-									<input class="button-primary" type="submit" name="my_submit_smart" value="Salva">
-									<input class="button-primary" type="submit" name="export_html_submit" value="Visualizza html">
+									<input class="button-primary" type="submit" name="submit_smart" value="Salva Mazzo">
 							</div>
 						</div>
 						</form>
 					</div>
 				</div>
 			</div>
-
-			<div id="post-body-content2">
-				<textarea id="" name="" cols="80" rows="10" class="large-text html-box"><?php echo $content; ?></textarea>
-			</div>
-
 </div>

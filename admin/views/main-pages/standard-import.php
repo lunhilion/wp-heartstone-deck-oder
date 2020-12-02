@@ -19,18 +19,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<tbody>
 								<tr valign="top">
 									<th scope="row">
-										<label for="deck-title">Titolo Mazzo</label>
+										<label for="deck-code">Codice Mazzo</label>
 									</th>
 									<td>
-										<input type="text" name="deck-title" value="" aria-required="true" required="true">
+										<input type="text" name="deck-code" value="" required="true">
 									</td>
 								</tr>
 								<tr valign="top">
 									<th scope="row">
-										<label for="deck-code">Codice Mazzo</label>
+										<label for="deck-title">Titolo Mazzo</label>
 									</th>
 									<td>
-										<input type="text" name="deck-code" value="" aria-required="true" required="true">
+										<input type="text" name="deck-title" value="" required="true">
 									</td>
 								</tr>
 								<tr valign="top">
@@ -49,10 +49,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<?php Wp_Heartstone_Deck_Oder_Admin::create_combobox('server', new Servers(0), Servers::UNKNOWN); ?>
 									</td>
 								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="deck-column">Colonna Singola</label>
+									</th>
+									<td>
+									<input type="checkbox" name="deck-column" class="form-checkbox" value="1">
+									</td>
+								</tr>
 								</tbody>
 							</table>
 							<div class="table-deck-footer">
-									<input class="button-primary" type="submit" name="my_submit" value="CULOSalva">
+									<input class="button-primary" type="submit" name="submit_standard" value="Salva Mazzo">
 									<input class="button-primary" type="submit" name="export_html_submit" value="Visualizza html">
 							</div>
 						</div>
@@ -62,7 +70,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div id="post-body-content2">
-				<textarea id="" name="" cols="80" rows="10" class="large-text html-box"><?php echo $content; ?></textarea>
+				<textarea id="" name="" cols="80" rows="10" class="large-text html-box"><?php if(isset($_POST['html_content'])) echo $_POST['html_content']; ?></textarea>
 			</div>
 
 </div>
+
