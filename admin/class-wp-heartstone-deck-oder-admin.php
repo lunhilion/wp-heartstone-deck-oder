@@ -64,8 +64,8 @@ class Wp_Heartstone_Deck_Oder_Admin {
 	public static function insert_wordpress_deck($deck) {
 		$post_id = self::create_wordpress_post(self::create_slug($deck->generate_title()), $deck->generate_title(), $deck->html_render(), $deck->html_excerpt());
 		$trimmed_hero = preg_replace('/\s/', '', $deck->get_hero());
-		echo "EROE: " . $trimmed_hero;
 		self::add_featured_image_to_post($trimmed_hero, $post_id);
+		self::add_deck_categories($deck->get_format(), $deck->get_hero(), $post_id);
 	}
 
 	public static function create_wordpress_post($slug, $title, $content, $excerpt) {	
@@ -156,7 +156,7 @@ class Wp_Heartstone_Deck_Oder_Admin {
 				$images = array();
 				foreach ($query_images->posts as $image) {
 					$image_url = wp_get_attachment_url($image->ID);
-					$match = strpos($image_url, $image_name);
+					$match = stripos($image_url, $image_name);
 					if($match !== false) {
 						$image_id = $image->ID;
 						break;
@@ -164,6 +164,33 @@ class Wp_Heartstone_Deck_Oder_Admin {
 				}
 				if(!empty($image_id)) {
 					$thumbnail = set_post_thumbnail($post_id, $image_id);
+				}
+			}
+		}
+
+		public static function add_deck_categories($format, $class, $post_id) {
+			if(!empty($format)) {
+				$result = array();
+				$categories = get_categories( array(
+					'orderby' => 'name',
+					'order'   => 'ASC',
+					'hide_empty' => false
+				) );
+
+				foreach($categories as $c1) {
+					$match1 = stripos($c1->name, $format);
+					if($match1 !== false) {
+						$result[] = $c1->term_id;
+						foreach($categories as $c2) {
+							$match2 = stripos($c2->name, $class);
+							if(($c2->parent == $c1->term_id) && ($match2 !== false)) {
+								$result[] = $c2->term_id;
+							}	
+						}
+					}
+				}
+				if(!empty($result)) {
+					wp_set_post_categories($post_id, $result, true);
 				}
 			}
 		}

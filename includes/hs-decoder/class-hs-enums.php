@@ -43,16 +43,16 @@ class Base_Enum {
 }
 class Heroes extends Base_Enum {
 
-	const DRUID = "Druid";
-	const HUNTER = "Hunter";
-	const MAGE = "Mage";
-	const PALADIN = "Paladin";
-	const PRIEST = "Priest";
-	const ROGUE = "Rogue";
-	const SHAMAN = "Shaman";
-	const WARLOCK = "Warlock";
-	const WARRIOR = "Warrior";
-	const DEMONHUNTER = "Demon Hunter";
+	const DRUID = "DRUID";
+	const HUNTER = "HUNTER";
+	const MAGE = "MAGE";
+	const PALADIN = "PALADIN";
+	const PRIEST = "PRIEST";
+	const ROGUE = "ROGUE";
+	const SHAMAN = "SHAMAN";
+	const WARLOCK = "WARLOCK";
+	const WARRIOR = "WARRIOR";
+	const DEMONHUNTER = "DEMON HUNTER";
 
 	public function __construct($id) {
 		parent::__construct($id);
@@ -63,7 +63,6 @@ class Game_Types extends Base_Enum {
 	
 	const UNKNOWN = '';
 	const ARENA = 'ARENA';
-	const BATTLEGROUND = 'BATTLEGROUND';
 	const DUELS = 'DUELS';
 	const STANDARD = 'STANDARD';
 	const WILD = 'WILD';
