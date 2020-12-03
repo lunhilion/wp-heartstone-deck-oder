@@ -76,6 +76,27 @@ class Wp_Heartstone_Deck_Oder_Admin {
 			}
 			$_POST['html_content'] = $deck->html_render();
 		}
+
+		if(isset($_POST['batch_export_html_submit'])) {
+			$result = '';
+			$deckstring_list = explode(';', $_POST['deck-code-batch']);
+			var_dump($deckstring_list);
+			if(!empty($deckstring_list)) {
+				foreach($deckstring_list as $deckstring) {
+					if(!empty($deckstring)) {
+						$deck = Hs_Serializer::deserialize($deckstring);
+						$deck->set_format($_POST['deck-format']);
+						$deck->set_server($_POST['deck-server']);
+						if(isset($_POST['deck-column'])) {
+							$deck->set_render_column($_POST['deck-column']);
+						}
+						$result .= $deck->html_render();
+					}
+				}
+			}
+			
+			$_POST['html_content'] = $result;
+		}
 	
 		// if(isset($_POST['my_submit_importlel'])) {
 		// 	$api = Hs_Api::get_instance();
@@ -156,7 +177,8 @@ class Wp_Heartstone_Deck_Oder_Admin {
 		public static function create_admin_page($current_tab) {
 			$tabs = array(
 				'smart-import'   => 'Nuovo Mazzo', 
-				'standard-import'  => 'Nuovo Mazzo [CUSTOM]'
+				'standard-import'  => 'Nuovo Mazzo [CUSTOM]',
+				'batch-import'  => 'Nuovo Mazzo [BATCH]'
 			);
 			if(empty($current_tab)) {
 				$current_tab = key($tabs);
