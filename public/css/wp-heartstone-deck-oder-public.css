@@ -94,6 +94,10 @@ li.free-card {
     padding: 1%;
 }
 
+.deck-one-col {
+    padding: 1%;
+}
+
 .deck-metabox {
     font-size: 12px;
     font-weight: bold;
@@ -105,7 +109,7 @@ li.free-card {
 }
 
 .deckstring-text {
-    width: 75%;
+    width: 100%;
 }
 
 .hsdeck {
@@ -162,6 +166,14 @@ button#deck-copy {
 @media screen and (min-width: 48em) {
     .deck-col {
         width: 50%;
+        float: left;
+        padding: 1%;
+    }
+}
+
+@media screen and (min-width: 48em) {
+    .deck-one-col {
+        width: 413px;
         float: left;
         padding: 1%;
     }

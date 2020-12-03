@@ -98,7 +98,7 @@ class Hs_Deck {
 		$html = '';
 		if($column == 1) {
 			$d1 = $this->get_cards_list();
-			$html .= '<div class="deck-col">';
+			$html .= '<div class="deck-one-col">';
 			$html .= '<div class="deck-metabox">' .
 					self::html_meta_header() .
 					'</div>';
@@ -113,6 +113,7 @@ class Hs_Deck {
 			}
 			$html .= '</ul>';
 			$html .= self::html_deckstring_box_render('deck-list-one-col');
+			$html .= '</div>';
 
 		} else if($column == 2) {
 			$d1 = $this->get_class_cards();

@@ -23,7 +23,11 @@ class Wp_Heartstone_Deck_Oder_Admin {
 	}
 
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-heartstone-deck-oder-admin.css', array(), $this->version, 'all' );
+		$page_slug = get_current_screen();
+		if (strcmp($page_slug->id,'toplevel_page_new-deck') == 0) {
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-heartstone-deck-oder-admin.css', array(), $this->version, 'all' );
+		}
+		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-heartstone-deck-oder-admin.css', array(), $this->version, 'all' );
 	}
 
 	public function enqueue_scripts() {
