@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WP_HEARTSTONE_DECK_ODER_VERSION', '0.1.2' );
+define( 'WP_HEARTSTONE_DECK_ODER_VERSION', '0.2.0' );
 
 function activate_wp_heartstone_deck_oder() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-heartstone-deck-oder-activator.php';
