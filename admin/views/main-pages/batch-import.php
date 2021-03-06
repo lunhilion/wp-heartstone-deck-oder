@@ -43,10 +43,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</tr>
 								<tr valign="top">
 									<th scope="row">
-										<label for="deck-column">Colonna Singola</label>
+										<label for="deck-column">Mazzo In Colonna Singola</label>
 									</th>
 									<td>
 									<input type="checkbox" name="deck-column" class="form-checkbox" value="1">
+									</td>
+								</tr>
+								<tr valign="top">
+									<th scope="row">
+										<label for="deck-column">Visualizzazione A Quattro Colonne</label>
+									</th>
+									<td>
+									<input type="checkbox" name="deck-four-times" class="form-checkbox" value="true">
 									</td>
 								</tr>
 								</tbody>

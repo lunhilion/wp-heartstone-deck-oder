@@ -90,6 +90,9 @@ class Wp_Heartstone_Deck_Oder_Admin {
 						if(isset($_POST['deck-column'])) {
 							$deck->set_render_column($_POST['deck-column']);
 						}
+						if(isset($_POST['deck-four-times'])) {
+							$deck->set_four_times_render($_POST['deck-four-times']);
+						}
 						$result .= $deck->html_render();
 					}
 				}

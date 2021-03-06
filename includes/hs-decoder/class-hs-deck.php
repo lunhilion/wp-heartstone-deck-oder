@@ -23,6 +23,7 @@ class Hs_Deck {
 	private $cards_list = array();
 	private $deckstring;
 	private $render_column = 2;
+	private $four_times_render = false;
 
 	public function __construct() {}
 
@@ -98,7 +99,11 @@ class Hs_Deck {
 		$html = '';
 		if($column == 1) {
 			$d1 = $this->get_cards_list();
-			$html .= '<div class="deck-one-col">';
+			if ($four_times_render == false) {
+				$html .= '<div class="deck-one-col">';
+			} else {
+				$html .= '<div class="deck-one-col deck-four-times">';
+			}
 			$html .= '<div class="deck-metabox">' .
 					self::html_meta_header() .
 					'</div>';
@@ -264,6 +269,14 @@ class Hs_Deck {
 	
 	public function set_render_column($render_column) {
 		$this->render_column = $render_column;
+	}
+
+	public function get_four_times_render() {
+		return $this->four_times_render;
+	}
+
+	public function set_four_times_render($four_times_render) {
+		$this->four_times_render = $four_times_render;
 	}
 
 	public function get_archetype() {
