@@ -80,7 +80,6 @@ class Wp_Heartstone_Deck_Oder_Admin {
 		if(isset($_POST['batch_export_html_submit'])) {
 			$result = '';
 			$deckstring_list = explode(';', $_POST['deck-code-batch']);
-			var_dump($deckstring_list);
 			if(!empty($deckstring_list)) {
 				foreach($deckstring_list as $deckstring) {
 					if(!empty($deckstring)) {

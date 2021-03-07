@@ -99,7 +99,7 @@ class Hs_Deck {
 		$html = '';
 		if($column == 1) {
 			$d1 = $this->get_cards_list();
-			if ($four_times_render == false) {
+			if ($this->four_times_render == false) {
 				$html .= '<div class="deck-one-col">';
 			} else {
 				$html .= '<div class="deck-one-col deck-four-times">';
